@@ -8,3 +8,7 @@ release
 release/*
 *.log
 *.ini
+temp
+temp/*
+plugin/temp
+plugin/temp/*
