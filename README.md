@@ -1,11 +1,11 @@
 # QQLightBot
 
-这是一个基于asyncio的python qq 机器人框架，得益于[QQLight](https://www.52chat.cc/download.php)和插件[qqlight-websocket](https://github.com/Chocolatl/qqlight-websocket)
+这是一个基于Asyncio的Python QQ 机器人框架，得益于[QQLight](https://www.52chat.cc/download.php)和插件[qqlight-websocket](https://github.com/Chocolatl/qqlight-websocket)
 
 
-## 使用方法
+## 一、使用方法
 
-### 机器人客户端
+### 1、机器人客户端
  - 插件启动后默认监听`49632`端口，在本机可以使用WebSocket客户端通过URL`ws://localhost:49632/`连接服务器
  - 第一次启动插件后会在插件数据目录`plugin/websocket.protocol`中生成`config.json`文件，里面提供了一些插件配置项
  - 你可以修改这些插件配置项并保存文件，然后重新启动插件使新的配置生效
@@ -14,10 +14,10 @@
  - 【port】服务器监听端口号，默认为`49632`
  - 【path】WebSocket握手时的URL路径，默认为根路径`/`，即通过`ws://localhost:49632/`连接服务器。如果将路径修改为`/xxx/yyy`，则需要通过`ws://localhost:49632/xxx/yyy`才能连接服务器，路径应该只包含`字母`、`数字`及`/`，当允许通过外网连接服务器时，请设置一个足够复杂的路径，防止被他人恶意连接
 
-### Python 自定义各种机器人接口
+### 2、Python 自定义各种机器人接口
 待开发
 
-## 以下为WS接口的API文档
+## 二、以下为WS接口的API文档
 
 服务端与客户端发送的消息都是顶层结构为`对象`的JSON格式文本，文本编码为UTF-8
 
