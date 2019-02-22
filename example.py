@@ -11,6 +11,8 @@ Created on 2019年2月22日
 """
 
 import logging
+import re
+from urllib.parse import quote
 
 from QQLightBot import ApiProtocol
 
@@ -22,6 +24,7 @@ __Copyright__ = 'Copyright (c) 2019 Irony'
 __Version__ = 1.0
 
 logger = logging.getLogger('QQLightBot')
+BaiduMatch = re.compile('^百度 (.*)', re.M | re.S)
 
 
 class ExampleProtocol(ApiProtocol):
@@ -31,21 +34,6 @@ class ExampleProtocol(ApiProtocol):
         """连接成功
         """
         logger.info('connect succeed')
-
-        data = await cls.getGroupCard('3377971314', '794510765')
-        logger.info('群名片: {}'.format(str(data)))
-
-        data = await cls.getGroupInfo('3377971314', '794510765')
-        logger.info('群资料: {}'.format(str(data)))
-
-        data = await cls.getGroupList()
-        logger.info('群列表: {}'.format(str(data)))
-
-        data = await cls.getGroupMemberList('794510765')
-        logger.info('群成员列表: {}'.format(str(data)))
-
-        data = await cls.getFriendList()
-        logger.info('好友列表: {}'.format(str(data)))
 
     @classmethod
     async def message(cls, type=0, qq='', group='', msgid='', content=''):  # @ReservedAssignment
@@ -59,8 +47,13 @@ class ExampleProtocol(ApiProtocol):
         """
         logger.info(
             str(dict(type=type, qq=qq, group=group, msgid=msgid, content=content)))
-        if group == '794510765':
-            # 测试群，复读机
+#         if group == '794510765':
+        # 测试群
+        if BaiduMatch.search(content):
+            await cls.sendMessage(2, group, '', '{}\nhttps://pyqt5.com/search.php?m=baidu&w={}'
+                                  .format(cls.formatAt(qq), quote(content[3:])))
+        else:
+            # 复读机
             await cls.sendMessage(2, group, '', '我是复读机：' + content)
 
     @classmethod

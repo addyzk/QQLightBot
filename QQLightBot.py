@@ -43,14 +43,17 @@ class MsgDict(dict):
 class ApiProtocol:
 
     _ws = None
+    _session = None
 
     @classmethod
-    def _init(cls, ws):
-        """初始化协议设置ws连接对象
+    def _init(cls, ws, session):
+        """初始化协议设置ws连接对象和网络请求对象
         :param cls:
         :param ws:
+        :param session:
         """
         cls._ws = ws
+        cls._session = session
 
     @classmethod
     def _makeData(cls, method, **kwargs):
@@ -189,7 +192,7 @@ class ApiProtocol:
         """
 
     @classmethod
-    async def updateCookies(cls, *args, **kwargs):
+    async def updateCookies(cls):
         """事件.Cookies更新
         :param cls:
         """
@@ -508,7 +511,7 @@ async def _run(args, entity):
             logger.info('connect succeed')
             try:
                 logger.info('entity _init')
-                entity._init(ws)
+                entity._init(ws, session)
             except AttributeError:
                 logger.error('class %r has no method %r' % (entity, '_init'))
             await entity.onConnect()
@@ -523,7 +526,10 @@ async def _run(args, entity):
                         if msg.event != None:
                             # 调用函数并传递参数
                             try:
-                                await getattr(entity, msg.event)(**msg.params)
+                                if msg.params != None:
+                                    await getattr(entity, msg.event)(**msg.params)
+                                else:
+                                    await getattr(entity, msg.event)()
                             except Exception as e:
                                 logger.exception(e)
                     except Exception as e:
