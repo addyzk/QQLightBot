@@ -2,6 +2,7 @@
 
 这是一个Python机器人框架，得益于
 [aiohttp](https://github.com/aio-libs/aiohttp)
+、
 [QQLight](https://www.52chat.cc/download.php)
 和插件
 [qqlight-websocket](https://github.com/Chocolatl/qqlight-websocket)
@@ -19,7 +20,8 @@
  - 【path】WebSocket握手时的URL路径，默认为根路径`/`，即通过`ws://localhost:49632/`连接服务器。如果将路径修改为`/xxx/yyy`，则需要通过`ws://localhost:49632/xxx/yyy`才能连接服务器，路径应该只包含`字母`、`数字`及`/`，当允许通过外网连接服务器时，请设置一个足够复杂的路径，防止被他人恶意连接
 
 ### 2、Python 自定义各种机器人接口
- - 安装依赖`pip install -r requirements.txt`
+ - 安装依赖 `pip install -r requirements.txt`
+ - 运行例子 `python QQLightBot.py -H 127.0.0.1 -P 49632 -U / -L INFO example:ExampleProtocol`
 
 ## 二、以下为WS接口的API文档
 
