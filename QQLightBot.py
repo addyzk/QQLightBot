@@ -76,7 +76,8 @@ class ApiProtocol:
         :param cls:
         :param guid:
         """
-        return 'http://gchat.qpic.cn/gchatpic_new/0/0-0-{}/0'.format(guid.replace('-', '').upper())
+        return 'http://gchat.qpic.cn/gchatpic_new/0/0-0-{}/0'.format(
+            guid.replace('-', '').upper().split('.')[0])
 
     @classmethod
     def formatAt(cls, qq):
